@@ -2,7 +2,7 @@
 Tools for TDD flow in declarative way
 
 Example:
-```
+```jsx
 const initialState = { cat: { name: "Barsik", age: 5 } };
 it('Cat test', () => {
     const {
