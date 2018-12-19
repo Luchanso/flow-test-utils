@@ -28,8 +28,7 @@ const CatContainer = connect(({ cat }) => ({
 
 // --- begin test ---
 
-const modifyCat = ({ state = {} }) => setIn(state, 'cat', { name: 'Barsik', age: 5 });
-const modifyCat2 = (state = {}) => setIn(state, 'cat', { name: 'Barsik', age: 5 });
+const modifyCat = (state = {}) => setIn(state, 'cat', { name: 'Barsik', age: 5 });
 
 describe('bdd tests', () => {
     it('should create and modify', () => {
