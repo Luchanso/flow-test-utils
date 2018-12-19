@@ -1,10 +1,3 @@
-import { combineReducers } from 'redux';
-import { string, number } from 'prop-types';
-import { connect } from 'react-redux';
-import { flow, createStore, modifyStore, mount, dispatch, getState, wrapper } from '../index';
-import setIn from '../../set-in';
-import { simpleFunc2, simpleFunc1 } from '../bdd';
-
 // --- test data ---
 
 const initialCatState = { isLoading: true };
@@ -35,14 +28,11 @@ const CatContainer = connect(({ cat }) => ({
 
 // --- begin test ---
 
-const modifyCat = ({ store }) => setIn(store, 'cat', { name: 'Barsik', age: 5 });
+const modifyCat = ({ state = {} }) => setIn(state, 'cat', { name: 'Barsik', age: 5 });
+const modifyCat2 = (state = {}) => setIn(state, 'cat', { name: 'Barsik', age: 5 });
 
 describe('bdd tests', () => {
     it('should create and modify', () => {
-        flow([simpleFunc1(), simpleFunc2()]);
-
-        // expect(2).tobe(3);
-
         flow(
             createStore(reducers, middlewares),
             modifyStore(modifyCat),
@@ -54,5 +44,18 @@ describe('bdd tests', () => {
             getState(state => expect(state).toMatchSnapshot()),
             clearActions()
         );
+    });
+
+    it('should work with best style', () => {
+        const {
+            store, wrapper, getActions, getState, dispatch, clearActions
+        } = mountWithStore(<CatContainer />, modifyCat2());
+
+        expect(wrapper.toMatchSnapshot());
+        dispatch(setAge(6));
+        expect(wrapper).toMatchSnapshot());
+        expect(getActions()).toMatchSnapshot();
+        expect(getState()).toMatchSnapshot());
+        clearActions();
     });
 });
