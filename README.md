@@ -10,10 +10,9 @@ it('Cat test', () => {
         store, wrapper, getActions, getState, dispatch
     } = mountWithStore(<CatContainer />, initialState);
 
-    const findText = () => wrapper.find('span').text();
-    expect(findText()).toBe('Age: 5');
+    expect(wrapper.find('span').text()).toBe('Age: 5');
     dispatch(setAge(6));
-    expect(findText()).toBe('Age: 6');
+    expect(wrapper.find('span').text()).toBe('Age: 6');
     expect(getActions()[0]).toEqual({ type: 'SET_AGE', payload: 6 });
     expect(getState().app.cat.name).toBe('Barsik');
 });
