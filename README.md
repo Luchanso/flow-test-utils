@@ -4,10 +4,12 @@ Tools for TDD flow in declarative way
 Example:
 ```jsx
 const initialState = { cat: { name: "Barsik", age: 5 } };
+
 it('Cat test', () => {
     const {
         store, wrapper, getActions, getState, dispatch
     } = mountWithStore(<CatContainer />, initialState);
+
     const findText = () => wrapper.find('span').text();
     expect(findText()).toBe('Age: 5');
     dispatch(setAge(6));
